@@ -142,7 +142,6 @@ class LinearAlgebraApp:
         self.result_text.configure(yscrollcommand=scrollbar.set)
 
     def generate_matrix_grid(self):
-        """Build an editable m x (n+1) augmented-matrix grid."""
         try:
             num_rows = int(self.rows_entry.get().strip())
             num_vars = int(self.cols_entry.get().strip())
@@ -175,7 +174,7 @@ class LinearAlgebraApp:
                 self.matrix_frame,
                 text=f"x{col + 1}",
                 font=("Arial", 10, "bold"),
-                bg="#10182D",
+                bg="#1A2647",
                 fg="#F6E18F"
             ).grid(row=0, column=col, padx=5, pady=4)
 
@@ -216,12 +215,6 @@ class LinearAlgebraApp:
         )
 
     def read_matrix(self):
-        """
-        Read the values currently shown in the Entry widgets.
-
-        Returns:
-            A nested list of floats, or None if validation fails.
-        """
         if not self.entries:
             messagebox.showerror("Input error", "Create a matrix first.")
             return None
@@ -271,7 +264,6 @@ class LinearAlgebraApp:
 
     @staticmethod
     def format_matrix(matrix):
-        """Return a readable string representation of a matrix."""
         if not matrix:
             return "(empty matrix)"
 
@@ -294,14 +286,12 @@ class LinearAlgebraApp:
         return "\n".join(formatted_rows)
 
     def display_result(self, message):
-        """Replace the contents of the result area."""
         self.result_text.configure(state="normal")
         self.result_text.delete("1.0", tk.END)
         self.result_text.insert(tk.END, message)
         self.result_text.configure(state="disabled")
 
     def show_solver_result(self, result, method_name):
-        """Display the transformed matrix and the solution information."""
         required_keys = {
             "matrix", "type", "pivot_cols",
             "free_vars", "solution", "general"

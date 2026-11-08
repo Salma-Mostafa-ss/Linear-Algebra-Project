@@ -3,7 +3,7 @@ import matrix_operations as mo
 def gaussian_elimination(matrix):
     """
     Convert an augmented matrix into Row Echelon Form (REF)
-    using Gaussian elimination and analyze the solution.
+    using Gaussian elimination and solve using back-substitution.
 
     The original matrix is not modified.
     """
@@ -47,7 +47,48 @@ def gaussian_elimination(matrix):
 
     mo.clean_matrix(reduced)
 
-    # Analyze the REF matrix to solve variables by back-substitution / consistency
+    pivot_cols = sorted(set(pivot_cols))
+    free_vars = [col for col in range(num_vars) if col not in pivot_cols]
+
+    # Check for inconsistency (No solution: 0 = non-zero)
+    for row in reduced:
+        all_coefficients_zero = all(mo.is_zero(row[col]) for col in range(num_vars))
+        if all_coefficients_zero and not mo.is_zero(row[num_vars]):
+            return {
+                "matrix": reduced,
+                "type": "none",
+                "pivot_cols": pivot_cols,
+                "free_vars": free_vars,
+                "solution": None,
+                "general": None,
+            }
+
+    # Unique solution using Back-Substitution for REF matrix
+    if len(pivot_cols) == num_vars:
+        solution = [0.0] * num_vars
+        # Back-substitution from bottom to top
+        for row_idx in range(len(pivot_cols) - 1, -1, -1):
+            p_col = pivot_cols[row_idx]
+            rhs = reduced[row_idx][num_vars]
+            for j in range(p_col + 1, num_vars):
+                rhs -= reduced[row_idx][j] * solution[j]
+            solution[p_col] = rhs
+
+        solution = [
+            0.0 if mo.is_zero(value) else value
+            for value in solution
+        ]
+
+        return {
+            "matrix": reduced,
+            "type": "unique",
+            "pivot_cols": pivot_cols,
+            "free_vars": [],
+            "solution": solution,
+            "general": None,
+        }
+
+    # For infinite solutions, fallback or analyze
     analysis = mo.analyze_solution(reduced, num_vars, pivot_cols)
 
     return {
