@@ -12,7 +12,7 @@ class LinearAlgebraApp:
         self.root.title("Linear Algebra Solver")
         self.root.geometry("850x720")
         self.root.minsize(650, 550)
-        self.root.configure(bg="#ECD8CC")
+        self.root.configure(bg="#10182D")
 
         self.entries = []
 
@@ -24,51 +24,51 @@ class LinearAlgebraApp:
         title = tk.Label(
             self.root,
             text="Linear Algebra Solver",
-            bg="#ECD8CC",
+            bg="#10182D",
             font=("Arial", 20, "bold"),
-            fg="#282C3B"
+            fg="#EADCC7"
         )
         title.pack(pady=(12, 4))
 
         subtitle = tk.Label(
             self.root,
             text="Enter an augmented matrix, then choose a solving method.",
-            bg="#ECD8CC",
+            bg="#10182D",
             font=("Arial", 10),
-            fg="#282C3B"
+            fg="#EADCC7"
         )
         subtitle.pack(pady=(0, 10))
 
         dimensions_frame = tk.LabelFrame(
             self.root,
             text="System dimensions",
-            bg="#FAEEE5",
+            bg="#10182D",
             font=("Arial", 11, "bold"),
-            fg="#282C3B",
+            fg="#EADCC7",
             padx=10,
             pady=10
         )
         dimensions_frame.pack(fill="x", padx=15, pady=8)
 
-        tk.Label(dimensions_frame, text="Number of equations:", bg="#FAEEE5", fg="#282C3B").grid(
+        tk.Label(dimensions_frame, text="Number of equations:", bg="#10182D", fg="#EADCC7").grid(
             row=0, column=0, padx=5, pady=5, sticky="w"
         )
-        self.rows_entry = tk.Entry(dimensions_frame, width=7, justify="center")
+        self.rows_entry = tk.Entry(dimensions_frame, width=7, justify="center", bg="#FBF2CF", fg="#1A2647")
         self.rows_entry.insert(0, "2")
         self.rows_entry.grid(row=0, column=1, padx=5, pady=5)
 
-        tk.Label(dimensions_frame, text="Number of variables:", bg="#FAEEE5", fg="#282C3B").grid(
+        tk.Label(dimensions_frame, text="Number of variables:", bg="#10182D", fg="#EADCC7").grid(
             row=0, column=2, padx=5, pady=5, sticky="w"
         )
-        self.cols_entry = tk.Entry(dimensions_frame, width=7, justify="center")
+        self.cols_entry = tk.Entry(dimensions_frame, width=7, justify="center", bg="#FBF2CF", fg="#1A2647")
         self.cols_entry.insert(0, "2")
         self.cols_entry.grid(row=0, column=3, padx=5, pady=5)
 
         create_button = tk.Button(
             dimensions_frame,
             text="Create / Reset Matrix",
-            bg="#435C4B",
-            fg="#FFF4EB",
+            bg="#B7CDDE",
+            fg="#1A2647",
             command=self.generate_matrix_grid
         )
         create_button.grid(row=0, column=4, padx=12, pady=5)
@@ -77,8 +77,8 @@ class LinearAlgebraApp:
             self.root,
             text="Augmented matrix",
             font=("Arial", 11, "bold"),
-            bg="#FAEEE5",
-            fg="#282C3B",
+            bg="#10182D",
+            fg="#EADCC7",
             padx=10,
             pady=10
         )
@@ -91,9 +91,9 @@ class LinearAlgebraApp:
             buttons_frame,
             text="Solve using Gaussian Elimination",
             command=self.solve_gaussian,
-            bg="#435C4B",
+            bg="#F1B24A",
             fg="#FFF4EB",
-            activebackground="#435C4B",
+            activebackground="#F1B24A",
             activeforeground="#ECD8CC",
             font=("Arial", 10, "bold"),
             padx=8,
@@ -105,10 +105,10 @@ class LinearAlgebraApp:
             buttons_frame,
             text="Solve using Gauss-Jordan (RREF)",
             command=self.solve_jordan,
-            bg="#243A2B",
-            fg="#FFF4EB",
-            activebackground="#243A2B",
-            activeforeground="#ECD8CC",
+            bg="#B7CDDE",
+            fg="#1A2647",
+            activebackground="#B7CDDE",
+            activeforeground="#1A2647",
             font=("Arial", 10, "bold"),
             padx=8,
             pady=8
@@ -119,8 +119,8 @@ class LinearAlgebraApp:
             self.root,
             text="Result",
             font=("Arial", 11, "bold"),
-            bg="#FAEEE5",
-            fg="#282C3B",
+            bg="#10182D",
+            fg="#EADCC7",
             padx=10,
             pady=10
         )
@@ -131,8 +131,8 @@ class LinearAlgebraApp:
             height=14,
             wrap="word",
             font=("Courier New", 10),
-            bg="#FAEEE5",
-            fg="#282C3B",
+            bg="#10182D",
+            fg="#B7CDDE",
             state="disabled"
         )
         self.result_text.pack(side="left", fill="both", expand=True)
@@ -175,15 +175,16 @@ class LinearAlgebraApp:
                 self.matrix_frame,
                 text=f"x{col + 1}",
                 font=("Arial", 10, "bold"),
-                bg="#FAEEE5"
+                bg="#10182D",
+                fg="#F6E18F"
             ).grid(row=0, column=col, padx=5, pady=4)
 
         tk.Label(
             self.matrix_frame,
             text="RHS",
             font=("Arial", 10, "bold"),
-            bg="#FAEEE5",
-            fg="#682019"
+            bg="#10182D",
+            fg="#F6E18F"
         ).grid(row=0, column=num_vars, padx=5, pady=4)
 
         for row_index in range(num_rows):
@@ -195,7 +196,8 @@ class LinearAlgebraApp:
                     width=10,
                     justify="center",
                     font=("Arial", 10),
-                    bg="#FCFCFE" if col_index == num_vars else "white"
+                    bg="#B7CDDE" if col_index == num_vars else "#FBF2CF",
+                    fg="#10182D"
                 )
                 entry.grid(
                     row=row_index + 1,
